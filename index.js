@@ -1,4 +1,5 @@
 const express = require('express')
+const mongoose = require('mongoose')
 
 // a more tedious way of using route handling
 //const {createUserRoutes} = require("./routes/user")
@@ -18,9 +19,9 @@ app.use(express.json());
 
 // if any of the request come to use endpoint it automatically get routed to userRouter
 // also all the prefixes and versions can be changed here instead of going to each end points and manually changing it
-app.use("/user", userRouter)
-app.use("/course", courseRouter)
-app.use("/admin", adminRouter)
+app.use("/api/v1/user", userRouter)
+app.use("/api/v1/course", courseRouter)
+app.use("/api/v1/admin", adminRouter)
 
 //createUserRoutes(app);
 //createCourseRoutes(app);
@@ -61,5 +62,10 @@ app.get('/course/preview', function(req, res){
 });
 
 */
+async function main(){
+    await mongoose.connect(process.env.MONGODB_URL)
+    app.listen(3000);
+    console.log("listenting on port 3000")
+}
 
-app.listen(3000);
+main()
