@@ -6,6 +6,7 @@ const express = require('express')
 
 const {userRouter} = require("./routes/user")
 const {courseRouter} = require("./routes/course")
+const {adminRouter} = require("./routes/admin")
 
 // Express router is a powerful feature that allows you to create modular, mountable route handlers.
 // It is initially a mini-application that can handle middleware and routes.
@@ -19,6 +20,7 @@ app.use(express.json());
 // also all the prefixes and versions can be changed here instead of going to each end points and manually changing it
 app.use("/user", userRouter)
 app.use("/course", courseRouter)
+app.use("/admin", adminRouter)
 
 //createUserRoutes(app);
 //createCourseRoutes(app);
