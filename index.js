@@ -4,7 +4,7 @@ const express = require('express')
 //const {createUserRoutes} = require("./routes/user")
 //const {createCourseRoutes} = require("./routes/course")
 
-const {useRouter} = require("./routes/user")
+const {userRouter} = require("./routes/user")
 const {courseRouter} = require("./routes/course")
 
 // Express router is a powerful feature that allows you to create modular, mountable route handlers.
@@ -12,8 +12,12 @@ const {courseRouter} = require("./routes/course")
 
 const app = express();
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 // if any of the request come to use endpoint it automatically get routed to userRouter
-app.use("/user", useRouter)
+// also all the prefixes and versions can be changed here instead of going to each end points and manually changing it
+app.use("/user", userRouter)
 app.use("/course", courseRouter)
 
 //createUserRoutes(app);
