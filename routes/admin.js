@@ -1,4 +1,5 @@
 const {Router} = require("express")
+const {adminModel} = require("../db.js")
 
 const adminRouter = Router()
 
@@ -14,26 +15,23 @@ adminRouter.post('/signin', function(req, res){
     })
 });
 
-// list of courses specific to the user
 adminRouter.post('/course', function(req, res){
     res.json({
-        message: 'signin endpoint'
+        message: 'create course endpoint'
     })
 });
 
 adminRouter.put('/course', function(req, res){
     res.json({
-        message: 'signin endpoint'
+        message: 'update course endpoint'
     })
 });
 
 adminRouter.get('/course/bulk', function(req, res){
     res.json({
-        message: 'signin endpoint'
+        message: 'get all courses endpoint'
     })
 });
-
-
 
 module.exports = {
     adminRouter: adminRouter
