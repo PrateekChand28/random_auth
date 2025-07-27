@@ -2,8 +2,10 @@
 const mongoose = require("mongoose")
 require("dotenv").config()
 
+/*
 console.log("Created DB")
 mongoose.connect(process.env.MONGODB_URL)
+*/
 
 const Schema = mongoose.Schema
 const ObjectId = mongoose.Types.ObjectId

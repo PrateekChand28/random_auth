@@ -45,7 +45,6 @@ userRouter.get('/purchases', function(req, res){
     })
 });
 
-
 module.exports = {
     userRouter: userRouter
 }
