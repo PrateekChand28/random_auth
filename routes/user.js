@@ -3,7 +3,7 @@
 const {Router} = require("express") // express returns an object
 const userRouter = Router();
 const {userModel} = require("../db");
-const { auth } = require("../auth");
+const { userAuth } = require("../middlewares/userMiddleware");
 const jwt = require('jsonwebtoken')
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD
 

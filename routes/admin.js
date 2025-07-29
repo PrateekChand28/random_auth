@@ -54,7 +54,7 @@ adminRouter.post('/', adminAuth, async function(req, res){
     const {title, description, price, imageUrl} = req.body;
 
     // check out a web3 saas in 6 hrs vid to check how to upload image
-    await courseModel.create({
+    const course = await courseModel.create({
         title: title,
         description: description, 
         imageUrl: imageUrl,
@@ -63,19 +63,44 @@ adminRouter.post('/', adminAuth, async function(req, res){
     })
 
     res.json({
-        message: 'create course endpoint'
+        message: 'course created',
+        courseId: course._id
     })
 });
 
-adminRouter.put('/', adminAuth, function(req, res){
+adminRouter.put('/', adminAuth, async function(req, res){
+    const adminId = req.userId;
+
+    const {title, description, price, imageUrl, courseId} = req.body;
+    
+    // check out a web3 saas in 6 hrs vid to check how to upload image
+    const course = await courseModel.updateOne({
+        _id: courseId,
+        // need to checlk for creator id because other admins may be able to change price
+        creatorId: adminId
+    }, {
+        title: title,
+        description: description, 
+        imageUrl: imageUrl,
+        price: price,
+        creatorId: adminId
+    })
+
     res.json({
-        message: 'update course endpoint'
+        message: 'course created',
+        courseId: course._id
     })
 });
 
-adminRouter.get('/bulk', adminAuth, function(req, res){
+adminRouter.get('/bulk', adminAuth, async function(req, res){
+    const adminId = req.userId;
+
+    const course = await courseModel.find({
+        creatorId: adminId
+    })
     res.json({
-        message: 'get all courses endpoint'
+        message: 'get all courses endpoint',
+        course
     })
 });
 

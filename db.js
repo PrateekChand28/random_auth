@@ -1,7 +1,5 @@
 //const {Schema, default: mongoose} = require("mongoose")
 const mongoose = require("mongoose")
-require("dotenv").config()
-
 /*
 console.log("Created DB")
 mongoose.connect(process.env.MONGODB_URL)
