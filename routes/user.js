@@ -1,9 +1,11 @@
 
 //const Router = express.Router
 const {Router} = require("express") // express returns an object
-
 const userRouter = Router();
-
+const {userModel} = require("../db");
+const { auth } = require("../auth");
+const jwt = require('jsonwebtoken')
+const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD
 /*
 function createUserRoutes(app){
     app.post('/signup', function(req, res){
@@ -26,16 +28,45 @@ function createUserRoutes(app){
     });
 }
 */
-userRouter.post('/signup', function(req, res){
+userRouter.post('/signup', async function(req, res){
+    const {email, password, firstName, lastName} = req.body; // TODO: add zod validation
+    //TODO: hash the password
+    //TODO: error handling
+
+    await userModel.create({
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName
+    })
+
     res.json({
-        message: 'signup endpoint'
+        message: 'You are signed up'
     })
 });
 
-userRouter.post('/signin', function(req, res){
-    res.json({
-        message: 'signin endpoint'
+userRouter.post('/signin', async function(req, res){
+    const {email, password} = req.body
+
+    // TODO: password should be hashed, and hence you can't compare the user provided password and the database password
+    const user = await userModel.findOne({
+        email: email,
+        password: password
     })
+
+    if (user) {
+        const token = jwt.sign({
+            id: user._id
+        }, JWT_USER_PASSWORD)
+        res.json({
+            token:token
+        })
+    } else {
+        res.json({
+            message: 'Incorrect Credentials'
+        })
+    }
+
 });
 
 // list of courses specific to the user
