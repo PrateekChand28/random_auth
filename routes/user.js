@@ -6,6 +6,7 @@ const {userModel} = require("../db");
 const { auth } = require("../auth");
 const jwt = require('jsonwebtoken')
 const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD
+
 /*
 function createUserRoutes(app){
     app.post('/signup', function(req, res){
@@ -49,6 +50,8 @@ userRouter.post('/signin', async function(req, res){
     const {email, password} = req.body
 
     // TODO: password should be hashed, and hence you can't compare the user provided password and the database password
+    // Note: If you use just .find() instead of find one then it will look for all the users
+    // and if none found returns an empty array and hence on every case will return back the token
     const user = await userModel.findOne({
         email: email,
         password: password

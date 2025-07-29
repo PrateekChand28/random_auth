@@ -1,7 +1,8 @@
 const {Router} = require("express")
-const {adminModel} = require("../db")
+const {adminModel, courseModel} = require("../db")
 const adminRouter = Router()
 const jwt = require("jsonwebtoken")
+const {adminAuth} = require("../middlewares/adminMiddleware")
 const JWT_ADMIN_PASSWORD = process.env.JWT_ADMIN_PASSWORD
 
 // check it based on schema
@@ -47,19 +48,32 @@ adminRouter.post('/signin', async function(req, res){
     }
 });
 
-adminRouter.post('/', function(req, res){
+adminRouter.post('/', adminAuth, async function(req, res){
+    const adminId = req.userId;
+
+    const {title, description, price, imageUrl} = req.body;
+
+    // check out a web3 saas in 6 hrs vid to check how to upload image
+    await courseModel.create({
+        title: title,
+        description: description, 
+        imageUrl: imageUrl,
+        price: price,
+        creatorId: adminId
+    })
+
     res.json({
         message: 'create course endpoint'
     })
 });
 
-adminRouter.put('/', function(req, res){
+adminRouter.put('/', adminAuth, function(req, res){
     res.json({
         message: 'update course endpoint'
     })
 });
 
-adminRouter.get('/bulk', function(req, res){
+adminRouter.get('/bulk', adminAuth, function(req, res){
     res.json({
         message: 'get all courses endpoint'
     })
