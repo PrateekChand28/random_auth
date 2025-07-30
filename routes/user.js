@@ -81,6 +81,7 @@ userRouter.get('/purchases', userAuth, async function(req, res){
     })
 
     const courses = await courseModel.find({
+        // map creates a new array by applying a given function to each element of the original array
         _id: purchases.map(x=>x.courseId)
     })
     res.json({

@@ -14,9 +14,14 @@ const {adminRouter} = require("./routes/admin")
 // It is initially a mini-application that can handle middleware and routes.
 
 const app = express();
-
+// static files are files that are not processed by the server, they are just served as they are
+app.use(express.static('public'));
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+});
 
 // if any of the request come to use endpoint it automatically get routed to userRouter
 // also all the prefixes and versions can be changed here instead of going to each end points and manually changing it
@@ -70,3 +75,5 @@ async function main(){
 }
 
 main()
+
+// Things to do: cookie implementation, and frontend 
