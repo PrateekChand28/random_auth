@@ -72,6 +72,15 @@ adminRouter.put('/', adminAuth, async function(req, res){
     const adminId = req.userId;
 
     const {title, description, price, imageUrl, courseId} = req.body;
+
+    console.log(req.body)
+    
+
+    console.log(title);
+    console.log(description);
+    console.log(price);
+    console.log(imageUrl);
+    console.log(courseId);
     
     // check out a web3 saas in 6 hrs vid to check how to upload image
     const course = await courseModel.updateOne({
@@ -107,3 +116,4 @@ adminRouter.get('/bulk', adminAuth, async function(req, res){
 module.exports = {
     adminRouter: adminRouter
 }
+
