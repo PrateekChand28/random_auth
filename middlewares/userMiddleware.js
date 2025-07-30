@@ -6,7 +6,7 @@ function userAuth(req, res, next){
     const decoded = jwt.verify(token, JWT_SECRET)
 
     if(decoded){
-        req.userId = token.userId
+        req.userId = decoded.id
         next()
     } else {
         res.status(403).json({
