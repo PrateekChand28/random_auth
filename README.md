@@ -1,2 +1,1 @@
-To be continued...
-
+A MERN Stack based course-selling-app.
